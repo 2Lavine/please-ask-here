@@ -1,10 +1,10 @@
 'use client';
 import { signIn, useSession } from 'next-auth/react';
-import { Router } from 'next/router';
-
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 const LoginPage = () => {
   const { status } = useSession();
-  // const router = useRouter();
+  const router = useRouter();
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -13,11 +13,14 @@ const LoginPage = () => {
   if (status === 'authenticated') {
     // send message to backend
     // return <div>{session.user.toString()}</div>;
-    Router.push('/');
+    // router.push('/');
   }
 
   return (
     <div>
+      <div>
+        <Link href="/login/email">Sign in with Email</Link>
+      </div>
       <div>
         <div>Sign in with Google</div>
         <div onClick={() => signIn('github')}>Sign in with Github</div>
