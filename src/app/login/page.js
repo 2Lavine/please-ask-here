@@ -13,7 +13,7 @@ const LoginPage = () => {
   if (status === 'authenticated') {
     // send message to backend
     // return <div>{session.user.toString()}</div>;
-    // router.push('/');
+    router.push('/');
   }
 
   return (

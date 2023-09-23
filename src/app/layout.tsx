@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 
+import AuthProvider from '@/providers/AuthProvider';
+import NextUIProvider from '@/providers/NEXTUIProvider';
 import './globals.css';
-import AuthProvider from "@/providers/AuthProvider";
 
 export const metadata: Metadata = {
   title: 'Pleas ask here',
@@ -14,10 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body >
+    <html lang="en" className="dark">
+      <body>
         <AuthProvider>
-          {children} 
+          <NextUIProvider>{children}</NextUIProvider>
         </AuthProvider>
       </body>
     </html>
