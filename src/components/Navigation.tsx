@@ -1,9 +1,8 @@
-// 'use client';
+import React from 'react';
 import Link from 'next/link';
 import UserProfile from '@/components/UserProfile';
 
-const nav = () => {
-
+function nav() {
   return (
     // <div className="h-screen w-1/6 ">
     <div className="flex flex-col my-auto w-64 p-7 rounded-3xl bg-red-50 items-center">
@@ -20,5 +19,5 @@ const nav = () => {
     </div>
     // </div>
   );
-};
+}
 export default nav;
