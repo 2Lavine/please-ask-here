@@ -15,5 +15,5 @@ export async function POST(request) {
   return NextResponse.json(await res.json());
 }
 export async function GET() {
-  return NextResponse.json({ msg: 'hello' });
+  return NextResponse.json({ msg: 'not Here👁👁👁' });
 }
