@@ -16,7 +16,11 @@ export default function UserProfile() {
     return <div>Loading...</div>;
   }
   if (status === 'unauthenticated') {
-    return <div>Unauthenticated</div>;
+    return (
+      <>
+        <Link href="/login"> Sign in </Link>
+      </>
+    );
   } else {
     console.log(data, status, 'hello');
     const { user } = data;

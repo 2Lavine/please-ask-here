@@ -1,3 +1,9 @@
+'use client';
+import { MsgCard } from '@/components/MsgCard';
 export default function Page() {
-  return <div>hello world</div>;
+  return (
+    <>
+      <MsgCard />
+    </>
+  );
 }

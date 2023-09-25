@@ -1,6 +1,7 @@
+import { nextui } from "@nextui-org/react";
 import type { Config } from 'tailwindcss';
-import {nextui} from "@nextui-org/react";
-
+// const { iconsPlugin, getIconCollections } = require("@egoist/tailwindcss-icons")
+import { getIconCollections, iconsPlugin } from "@egoist/tailwindcss-icons";
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,9 +16,16 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      scale: {
+        '97': '0.97',
+      }
+
     },
   },
-  plugins: [nextui()],
+  plugins: [nextui(), iconsPlugin({
+    // Select the icon collections you want to use
+    collections: getIconCollections(["mdi", "lucide", 'material-symbols', 'ph']),
+  }),],
   darkMode: "class",
 };
 export default config;
