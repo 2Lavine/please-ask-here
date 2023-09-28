@@ -9,7 +9,11 @@ const args = {
   big: false,
 };
 export const Primary = {
-  render: (args) => <QuestionCard {...args} />,
+  render: (args) => (
+    <div className="w-[42rem]">
+      <QuestionCard className="w-44" {...args} />
+    </div>
+  ),
   args: args,
 };
 export default {

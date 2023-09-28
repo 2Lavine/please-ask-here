@@ -6,6 +6,7 @@ const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/stories/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
@@ -24,7 +25,7 @@ const config: Config = {
   },
   plugins: [nextui(), iconsPlugin({
     // Select the icon collections you want to use
-    collections: getIconCollections(["mdi", "lucide", 'material-symbols', 'ph']),
+    collections: getIconCollections(["mdi", "lucide", 'material-symbols', 'ph', 'akar-icons']),
   }),],
   darkMode: "class",
 };

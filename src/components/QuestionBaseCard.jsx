@@ -13,12 +13,8 @@ export function QuestionCard(props) {
     setIsPlaying(false);
   };
   return (
-    <div
-      className={`relative flex-col flex h-40 bg-white ${
-        props.big ? 'w-2/3' : 'w-96'
-      } overflow-hidden`}
-    >
-      <Card className="bg-gray-100 shadow-none	 mx-2 p-4 mb-0 pb-0 flex flex-row z-10">
+    <div className="relative flex-col flex h-40 bg-white overflow-hidden">
+      <Card className="bg-slate-50 shadow-none p-4 mb-0 pb-0 flex flex-row z-10">
         <div className="mt-4 h-24">
           <div className="relative rounded-full ml-2 w-50 ">
             <Avatar
@@ -69,7 +65,7 @@ export function QuestionCard(props) {
         </div>
         <div className="flex-col mt-4 ml-6">
           <div className="mr-2 font-bold ">{props.userName}</div>
-          <div className="mr-2 text-gray-300">{props.answerTime}</div>
+          <div className="mr-2 text-sm ttext-slate-400">{props.answerTime}</div>
           <div className="mr-2 text-sm">{props.questionTime}</div>
         </div>
       </Card>

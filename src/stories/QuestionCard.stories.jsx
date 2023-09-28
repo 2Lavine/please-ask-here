@@ -1,3 +1,4 @@
+import '../app/globals.css';
 import { BriefQuestionCard } from '../components/QuestionCard';
 
 const args = {
@@ -7,8 +8,13 @@ const args = {
   questionDes: 'How awesome is Jason Calacanis at investing and podcasting?',
   imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
   big: false,
+  isDetail: false,
 };
-const Template = (args) => <BriefQuestionCard {...args} />;
+const Template = (args) => (
+  <div className="w-[42rem]">
+    <BriefQuestionCard {...args} />
+  </div>
+);
 
 export const Story = {
   render: Template,
