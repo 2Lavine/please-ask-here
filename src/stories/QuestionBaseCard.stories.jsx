@@ -1,5 +1,5 @@
 import '../app/globals.css';
-import { QuestionCard } from '../components/QuestionBaseCard';
+import { QuestionBaseCard } from '../components/QuestionBaseCard';
 
 const args = {
   userName: 'User Name',
@@ -11,13 +11,13 @@ const args = {
 export const Primary = {
   render: (args) => (
     <div className="w-[42rem]">
-      <QuestionCard className="w-44" {...args} />
+      <QuestionBaseCard className="w-44" {...args} />
     </div>
   ),
   args: args,
 };
 export default {
   title: 'Components/QuestionBaseCard',
-  component: QuestionCard,
+  component: QuestionBaseCard,
   args: args,
 };

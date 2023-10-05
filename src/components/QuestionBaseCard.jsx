@@ -1,7 +1,7 @@
 'use client';
 import { Avatar, Card, Progress } from '@nextui-org/react';
 import { useState } from 'react';
-export function QuestionCard(props) {
+export function QuestionBaseCard(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audio = { play: () => '', stop: () => '' };
   const playAudion = (audio) => {

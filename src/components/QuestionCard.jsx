@@ -1,4 +1,4 @@
-import { QuestionCard } from '@/components/QuestionBaseCard';
+import { QuestionBaseCard } from '@/components/QuestionBaseCard';
 import {
   Avatar,
   AvatarGroup,
@@ -7,7 +7,7 @@ import {
   Divider,
 } from '@nextui-org/react';
 import { useState } from 'react';
-export function BriefQuestionCard(props) {
+export function QuestionCard(props) {
   const {
     userName,
     answerTime,
@@ -61,7 +61,7 @@ export function BriefQuestionCard(props) {
           ) : (
             <div className="text-md font-bold mb-4 ">{questionDes}</div>
           )}
-          <QuestionCard {...QuestionBaseArgs} />
+          <QuestionBaseCard {...QuestionBaseArgs} />
         </div>
         <CardFooter className="mt-[-2rem] z-20 flex-col items-start">
           {isDetail && (

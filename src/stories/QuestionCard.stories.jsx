@@ -1,5 +1,5 @@
 import '../app/globals.css';
-import { BriefQuestionCard } from '../components/QuestionCard';
+import { QuestionCard } from '../components/QuestionCard';
 
 const args = {
   userName: 'User Name',
@@ -12,7 +12,7 @@ const args = {
 };
 const Template = (args) => (
   <div className="w-[42rem]">
-    <BriefQuestionCard {...args} />
+    <QuestionCard {...args} />
   </div>
 );
 
@@ -23,6 +23,6 @@ export const Story = {
 
 export default {
   title: 'Components/QuestionCard',
-  component: BriefQuestionCard,
+  component: QuestionCard,
   args: {},
 };

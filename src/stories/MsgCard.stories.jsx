@@ -7,7 +7,7 @@ const args = {
   description: 'Question has earned',
   amount: '$876.1',
 };
-export const Primary = {
+export const MsgCardPrimay = {
   render: (args) => <MsgCard {...args} />,
 };
 export default {
