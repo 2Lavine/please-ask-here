@@ -1,3 +1,4 @@
+'use client';
 import { Card, CardBody, Image } from '@nextui-org/react';
 export function MsgCard(props) {
   return (
