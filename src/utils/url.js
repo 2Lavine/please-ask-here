@@ -1,7 +1,6 @@
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://localhost:3000';
 const api = {
-  REGISTER: `${baseUrl}/login`,
-  LOGIN: `${baseUrl}/api/auth/pwd-login`,
+  REGISTER: `${baseUrl}/api/auth/register`,
+  SIGNIN: `${baseUrl}/api/auth/pwd-login`,
 };
-export const { REGISTER, LOGIN } = api;
-
+export const { REGISTER, SIGNIN } = api;

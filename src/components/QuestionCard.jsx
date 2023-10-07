@@ -17,7 +17,7 @@ export function QuestionCard(props) {
     questionDes,
     id,
     isDetail,
-    loveNumber,
+    // loveNumber,
   } = props;
   // let likeNumber = 46;
   const QuestionBaseArgs = {

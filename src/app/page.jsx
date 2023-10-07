@@ -1,5 +1,6 @@
+import LogInOutButton from '@/components/LogInOutButton';
 import { MsgCard } from '@/components/MsgCard';
-import { Button } from '@nextui-org/button';
+// import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 export default function Home() {
   const msgArgs = {
@@ -12,8 +13,11 @@ export default function Home() {
     <>
       <div className="text-3xl font-bold underline">Hello world</div>
       <Link href="/login"> login </Link>
-      <Button>Button</Button>
+      {/* <Button>Button</Button> */}
       <MsgCard {...msgArgs} />
+      <div>
+        <LogInOutButton />
+      </div>
     </>
   );
 }

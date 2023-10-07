@@ -1,12 +1,8 @@
 import { PAHButton } from '@/components/PAHButton';
 const args = {
-  userName: 'User Name',
-  answerTime: 'Answer Time',
-  questionTime: '1:25',
-  imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
-  big: false,
   frontColor: 'bg-black',
   backColor: 'bg-white',
+  width: 'w-44',
 };
 
 export default {
@@ -16,7 +12,7 @@ export default {
 };
 
 const Template = (args) => (
-  <div className="w-44">
+  <div className="text-white">
     <PAHButton {...args}>Click me</PAHButton>
   </div>
 );

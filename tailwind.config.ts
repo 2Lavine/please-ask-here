@@ -25,7 +25,7 @@ const config: Config = {
   },
   plugins: [nextui(), iconsPlugin({
     // Select the icon collections you want to use
-    collections: getIconCollections(["mdi", "lucide", 'material-symbols', 'ph', 'akar-icons', 'simple-icons', 'fluent', 'cryptocurrency-color']),
+    collections: getIconCollections(["mdi", "lucide", 'material-symbols', 'ph', 'akar-icons', 'simple-icons', 'fluent', 'cryptocurrency-color', 'iconamoon', 'carbon']),
   }),],
   darkMode: "class",
 };
