@@ -3,6 +3,6 @@
 
 import { NextUIProvider } from '@nextui-org/react';
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function UIProviders({ children }) {
   return <NextUIProvider>{children}</NextUIProvider>;
 }

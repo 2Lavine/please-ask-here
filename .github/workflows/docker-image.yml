@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.8.0
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -26,4 +29,16 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
-      
+      - name: SSH sign and run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker stop PSH-containers
+            docker remove PSH-containers
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
+            docker run -d --name PSH-containers -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest

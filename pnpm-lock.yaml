@@ -38,9 +38,6 @@ dependencies:
   next-auth:
     specifier: ^4.23.1
     version: 4.23.1(next@13.4.19)(react-dom@18.2.0)(react@18.2.0)
-  playwright:
-    specifier: ^1.38.1
-    version: 1.38.1
   postcss:
     specifier: 8.4.29
     version: 8.4.29
@@ -127,6 +124,9 @@ devDependencies:
   jest-environment-jsdom:
     specifier: ^29.7.0
     version: 29.7.0
+  playwright:
+    specifier: ^1.38.1
+    version: 1.38.1
   storybook:
     specifier: ^7.4.4
     version: 7.4.4
@@ -11061,6 +11061,7 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /fsevents@2.3.3:
@@ -14413,6 +14414,7 @@ packages:
     resolution: {integrity: sha512-tQqNFUKa3OfMf4b2jQ7aGLB8o9bS3bOY0yMEtldtC2+spf8QXG9zvXLTXUeRsoNuxEYMgLYR+NXfAa1rjKRcrg==}
     engines: {node: '>=16'}
     hasBin: true
+    dev: true
 
   /playwright@1.38.1:
     resolution: {integrity: sha512-oRMSJmZrOu1FP5iu3UrCx8JEFRIMxLDM0c/3o4bpzU5Tz97BypefWf7TuTNPWeCe279TPal5RtPPZ+9lW/Qkow==}
@@ -14422,6 +14424,7 @@ packages:
       playwright-core: 1.38.1
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /pnp-webpack-plugin@1.7.0(typescript@5.2.2):
     resolution: {integrity: sha512-2Rb3vm+EXble/sMXNSu6eoBx8e79gKqhNq9F5ZWW6ERNCTE/Q0wQNne5541tE5vKjfM8hpNCYL+LGc1YTfI0dg==}
