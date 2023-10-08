@@ -10,7 +10,7 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: '6xoACylHcNkc16QtddBOZxWRSpjfvqZdzbPDPrqogDk=',
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
