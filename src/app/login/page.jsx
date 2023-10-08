@@ -83,7 +83,6 @@ const LoginPage = () => {
                     <input
                       type="email"
                       className="m-0 mb-4 block w-full border border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 h-9 py-6 pl-14"
-                      maxlength="256"
                       name="name-2"
                       placeholder="Email Address"
                       {...register('email', {
@@ -107,7 +106,6 @@ const LoginPage = () => {
                     <input
                       type="password"
                       className="m-0 mb-4 block w-full border border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 h-9 py-6 pl-14"
-                      maxlength="256"
                       name="password-3"
                       placeholder="Password (min 8 characters)"
                       {...register('password', {
