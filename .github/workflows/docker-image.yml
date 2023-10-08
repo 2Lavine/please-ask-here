@@ -36,9 +36,18 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: GITHUB_SECRET:${{ secrets.AUTH_GITHUB_SECRET }}
+            GITHUB_ID:${{ secrets.AUTH_GITHUB_ID }}
+            NEXTAUTH_SECRET:${{ secrets.NEXTAUTH_SECRET }}
+            NEXTAUTH_URL:${{ secrets.NEXTAUTH_URL }}
           script: |
             docker stop PSH-containers
             docker remove PSH-containers
             docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
-            docker run -d --name PSH-containers -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
+            docker run -d --name PSH-containers \
+            -e GITHUB_SECRET=${{ secrets.AUTH_GITHUB_SECRET }} \
+            -e GITHUB_ID=${{ secrets.AUTH_GITHUB_ID }} \
+            -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
+            -e NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
+            -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/please-ask-here:latest
