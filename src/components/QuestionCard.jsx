@@ -1,3 +1,4 @@
+'use client';
 import { QuestionBaseCard } from '@/components/QuestionBaseCard';
 import {
   Avatar,

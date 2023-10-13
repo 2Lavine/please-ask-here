@@ -1,7 +1,7 @@
+'use client';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
-
-import { PAHButton } from './PAHButton';
 import { PAHAvatar } from './PAHAvatar';
+import { PAHButton } from './PAHButton';
 export function UserCard(props) {
   const { followers, answersNumber, userDescription } = props;
   return (
@@ -9,6 +9,7 @@ export function UserCard(props) {
       <Card
         className="
          mx-2 w-72 
+         my-4
           flex justify-center
           px-2
          items-center z-10"
@@ -31,7 +32,7 @@ export function UserCard(props) {
           </p>
         </CardBody>
         <CardFooter className="flex items-center justify-center mb-2">
-          <PAHButton frontColor="bg-white" backColor="bg-black">
+          <PAHButton frontColor="bg-white" backColor="bg-black" width="w-28">
             ASK ME
           </PAHButton>
         </CardFooter>
