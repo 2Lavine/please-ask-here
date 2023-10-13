@@ -4,14 +4,14 @@ import { Spacer, Tab, Tabs } from '@nextui-org/react';
 export default function Page() {
   let tabs = [
     {
-      id: 'Awaiting',
-      label: 'Awaiting',
+      id: 'Questions',
+      label: 'My Questions',
       content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
-      id: 'Completed',
-      label: 'Completed',
+      id: 'Unlocks',
+      label: 'My Unlocks',
       content:
         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     },
@@ -19,7 +19,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col w-4/5 mx-auto">
-      <h2 className="text-2xl font-semibold mb-8">Asks for me</h2>
+      <h2 className="text-2xl font-semibold mb-8">My Activities</h2>
       <Tabs
         aria-label="Dynamic tabs"
         radius="full"
