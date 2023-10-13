@@ -14,13 +14,13 @@ export function PAHAvatar(props) {
     }
     setIsPlaying((isPlaying) => !isPlaying);
   };
-  let AvatarClassNames = {
-    base: 'ring-2',
-    img: 'hover:brightness-50',
-  };
-  console.log(AvatarClassNames.img, 'AvatarClassNames.img', isPlaying);
+  // let AvatarClassNames = {
+  //   base: 'ring-2',
+  //   img: 'hover:brightness-50',
+  // };
+  // console.log(AvatarClassNames.img, 'AvatarClassNames.img', isPlaying);
   return (
-    <div className="relative rounded-full ml-2">
+    <div className="relative rounded-full ml-2 group '">
       <Avatar
         src={props.imgSrc}
         size="lg"
@@ -28,11 +28,10 @@ export function PAHAvatar(props) {
         isBordered
         color="success"
         className={`z-20 mx-auto play-icon  ${
-          isPlaying ? 'brightness-50' : ''
+          isPlaying ? 'brightness-50' : 'group-hover:brightness-50'
         }`}
         classNames={{
           base: 'ring-2',
-          img: 'hover:brightness-50',
         }}
         alt="logo"
       ></Avatar>

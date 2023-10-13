@@ -18,18 +18,16 @@ export default function UserProfile() {
   if (status === 'unauthenticated') {
     return (
       <>
-        <Link href="/login"> Sign in </Link>
+        <Link href="/login/register"> Sign in </Link>
       </>
     );
   } else {
-    console.log(data, status, 'hello');
     const { user } = data;
-    // console.log(data);
     return (
-      <>
+      <div className="flex flex-col items-center justify-center">
         <Avatar src={user.image} className="w-20 h-20 text-large" />
-        <div>{user.email}</div>
-        <div>{user.name}</div>
+        <div className="my-2">{user.email}</div>
+        <div className="mb-6 text-Emerald-400">@{user.name}</div>
         {list.map((item) => (
           <Link
             key={item}
@@ -40,7 +38,7 @@ export default function UserProfile() {
           </Link>
         ))}
         <div onClick={() => signOut()}>Sign out</div>
-      </>
+      </div>
     );
   }
 }
