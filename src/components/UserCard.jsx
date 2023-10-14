@@ -32,7 +32,12 @@ export function UserCard(props) {
           </p>
         </CardBody>
         <CardFooter className="flex items-center justify-center mb-2">
-          <PAHButton frontColor="bg-white" backColor="bg-black" width="w-28">
+          <PAHButton
+            frontColor="bg-white"
+            backColor="bg-black"
+            textColor="bg-white"
+            width="w-28"
+          >
             ASK ME
           </PAHButton>
         </CardFooter>

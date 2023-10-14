@@ -1,6 +1,19 @@
 import { UserCard } from '@/components/UserCard';
-// import { Spacer } from '@nextui-org/react';
-export default function UserCardList() {
+async function getData() {
+  const res = await fetch('http://127.0.0.1:8080/qa/all/users', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      pageSize: 2,
+    },
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  const responseData = await res.json();
+  return responseData.data.content;
+}
+export default async function UserCardList() {
   const MsgCardargs = {
     followers: 46,
     answersNumber: 47,
@@ -8,17 +21,12 @@ export default function UserCardList() {
     imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
     big: false,
   };
+  const userCardList = await getData();
   return (
     <div className="flex flex-wrap items-center justify-between">
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
-      <UserCard {...MsgCardargs} />
+      {userCardList.map((userCard) => (
+        <UserCard {...userCard} key={userCard.userDescription} />
+      ))}
     </div>
   );
 }

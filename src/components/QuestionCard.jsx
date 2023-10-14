@@ -48,7 +48,7 @@ export function QuestionCard(props) {
     }
   };
   return (
-    <>
+    <div>
       <Card className="w-full px-6 py-4 mb-8">
         <div className="">
           {isDetail ? (
@@ -110,6 +110,6 @@ export function QuestionCard(props) {
           </div>
         </CardFooter>
       </Card>
-    </>
+    </div>
   );
 }

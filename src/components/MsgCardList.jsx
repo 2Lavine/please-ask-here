@@ -6,7 +6,7 @@ export default function MsgCardList() {
     description: 'Question has earned',
     amount: '$876.1',
   };
-
+  
   return (
     <div className="flex items-center justify-between">
       <MsgCard {...MsgCardargs} />
