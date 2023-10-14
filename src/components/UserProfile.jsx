@@ -7,7 +7,7 @@ const list = [
   { label: 'Home', link: '/home' },
   { label: 'Ask for me', link: '/home/asks' },
   { label: 'My Activities', link: '/home/activities' },
-  { label: "Follewer's", link: '/follewers' },
+  { label: 'Subscription', link: '/home/subscription' },
   { label: 'My profile', link: '/home/profile' },
 ];
 export default function UserProfile() {

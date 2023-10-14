@@ -10,12 +10,24 @@ import {
   Spacer,
   Textarea,
 } from '@nextui-org/react';
-
+import { useRouter } from 'next/navigation';
 import { PAHAvatar } from './PAHAvatar';
 import { PAHButton } from './PAHButton';
 const MoneyTypes = ['USDT', 'ETH', 'BTC'];
 export function UserDetailCard(props) {
-  const { followers, answersNumber, userDescription, type } = props;
+  const {
+    followers,
+    answersNumber,
+    userDescription,
+    type,
+    questionersID,
+    onUnSubscribe,
+  } = props;
+  const router = useRouter();
+  const goToQuestioners = () => {
+    console.log(questionersID);
+    router.push('/home/questioners/' + questionersID);
+  };
   return (
     <>
       <Card
@@ -38,7 +50,7 @@ export function UserDetailCard(props) {
                   <PAHButton
                     frontColor="bg-black"
                     backColor="bg-white"
-                    width="w-44"
+                    width="w-28"
                     textColor="text-white"
                   >
                     ASK
@@ -53,6 +65,28 @@ export function UserDetailCard(props) {
                   >
                     EDIT PROFILE
                   </PAHButton>
+                )}
+                {type == 'SUBSCRIPTION' && (
+                  <div className="flex space-x-4">
+                    <PAHButton
+                      frontColor="bg-black"
+                      backColor="bg-white"
+                      width="w-28"
+                      textColor="text-white"
+                      onClick={onUnSubscribe}
+                    >
+                      Unsubscribe
+                    </PAHButton>
+                    <PAHButton
+                      frontColor="bg-black"
+                      backColor="bg-white"
+                      width="w-20"
+                      textColor="text-white"
+                      onClick={goToQuestioners}
+                    >
+                      ASK
+                    </PAHButton>
+                  </div>
                 )}
               </div>
               <div className="flex flex-row items-center content-baseline">

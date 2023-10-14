@@ -5,10 +5,19 @@ import { Divider } from '@nextui-org/react';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 const LoginPage = () => {
-  const { status } = useSession();
+  const { status, data } = useSession();
   const router = useRouter();
+  const [user, setUser] = useState(null);
+  // get local storage on load
+  useEffect(() => {
+    const curUser = localStorage.getItem('user');
+    console.log(curUser, 'get user on login');
+    setUser(curUser);
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -17,10 +26,22 @@ const LoginPage = () => {
   if (status === 'loading') {
     return <div>Loading...</div>;
   }
-
-  if (status === 'authenticated') {
-    // send message to backend
-    // return <div>{session.user.toString()}</div>;
+  if (status === 'authenticated' || user) {
+    const githubData = data;
+    console.log('signIN', SIGNIN);
+    fetch(SIGNIN, {
+      method: 'POST',
+      body: JSON.stringify({ type: 'email' }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem('user', JSON.stringify(githubData));
+        console.log(data);
+        console.log(githubData);
+      });
     router.push('/');
   }
   const signInByEmail = async (data) => {
@@ -37,6 +58,7 @@ const LoginPage = () => {
     const { success } = body.data;
     if (success) {
       router.push('/');
+      localStorage.setItem('user', JSON.stringify(body.data));
     }
     router.push('/');
   };

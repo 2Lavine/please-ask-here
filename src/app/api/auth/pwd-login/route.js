@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   let body = await request.json();
-  return NextResponse.json({ data: { body, success: true } });
+  return NextResponse.json({
+    data: { body: { ...body, userId: 1 }, success: true },
+  });
 
   // body = { ...body, type: 'email2' };
   // console.log(body, typeof body, 'body');
