@@ -44,6 +44,16 @@ export function UserDetailCard(props) {
                     ASK
                   </PAHButton>
                 )}
+                {type == 'EDIT' && (
+                  <PAHButton
+                    frontColor="bg-black"
+                    backColor="bg-white"
+                    width="w-44"
+                    textColor="text-white"
+                  >
+                    EDIT PROFILE
+                  </PAHButton>
+                )}
               </div>
               <div className="flex flex-row items-center content-baseline">
                 <span className="i-simple-icons-answer" />
@@ -64,7 +74,7 @@ export function UserDetailCard(props) {
         <CardBody className="py-0 px-4 mb-2 flex items-center justify-center">
           <p className="text font-light mt-4">{userDescription}</p>
         </CardBody>
-        {type != 'SHOW' && (
+        {type == 'INPUT' && (
           <>
             <div className="px-4 w-full ">
               <Divider className="my-4" />
