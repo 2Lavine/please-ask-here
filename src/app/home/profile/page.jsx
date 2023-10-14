@@ -16,7 +16,16 @@ export default function Page() {
   };
   const data = JSON.parse(localStorage.getItem('user'));
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: data.name,
+        bio: data.bio,
+      }),
+    });
+    console.log(data);
+  };
   return (
     <div className="w-10/12 mx-auto">
       <h1 className="text-xl font-bold my-8">People would see</h1>
