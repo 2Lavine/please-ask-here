@@ -5,6 +5,7 @@ const args = {
   answersNumber: 47,
   imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
   big: false,
+  type: 'SHOW',
   userDescription: `Entrepreneur, Investor, Father to 3 daughters, cyclist, surfer, poker player, and life hacker. Pre-seed up to $500K. pitch me: t.co/pat53we2xs.All proceeds to Charity. 
   Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
 };

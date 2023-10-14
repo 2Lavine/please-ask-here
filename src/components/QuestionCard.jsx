@@ -49,7 +49,7 @@ export function QuestionCard(props) {
   };
   return (
     <>
-      <Card className="w-full px-6 py-4">
+      <Card className="w-full px-6 py-4 mb-8">
         <div className="">
           {isDetail ? (
             <>

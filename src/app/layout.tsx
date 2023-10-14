@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html className="bg-gray-100 h-full " lang="en">
+      <body className="h-full">
         <AuthProvider>
           <UIProviders>{children}</UIProviders>
         </AuthProvider>
