@@ -1,9 +1,9 @@
 export function PAHButton({
   children,
-  frontColor,
-  backColor,
-  width,
-  textColor,
+  frontColor = 'bg-black',
+  backColor = 'bg-white',
+  width = 'w-28',
+  textColor = 'text-white',
   onClick,
 }) {
   return (

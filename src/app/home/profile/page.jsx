@@ -1,4 +1,5 @@
 'use client';
+import FundsButton from '@/components/FundsButton';
 import { PAHButton } from '@/components/PAHButton';
 import Recorder from '@/components/Recorder';
 import { UserDetailCard } from '@/components/UserDetailCard';
@@ -105,14 +106,7 @@ export default function Page() {
           <div className="text-lg font-semibold mb-2">Total Earnings</div>
           <div className="text-xl text-gray-700">$0</div>
         </div>
-        <PAHButton
-          frontColor="bg-black"
-          backColor="bg-white"
-          width="w-44"
-          textColor="text-white"
-        >
-          + Funds
-        </PAHButton>
+        <FundsButton />
       </div>
       <div className="h-8"></div>
     </div>
