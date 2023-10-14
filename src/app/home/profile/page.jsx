@@ -14,8 +14,11 @@ export default function Page() {
     userDescription: `Entrepreneur, Investor, Father to 3 daughters, cyclist, surfer, poker player, and life hacker. Pre-seed up to $500K. pitch me: t.co/pat53we2xs.All proceeds to Charity. 
         Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
   };
-  const data = JSON.parse(localStorage.getItem('user'));
   const { register, handleSubmit } = useForm();
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  const data = JSON.parse(localStorage.getItem('user'));
   const onSubmit = (data) => {
     fetch('/api/users', {
       method: 'POST',

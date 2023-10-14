@@ -1,6 +1,7 @@
 'use client';
 import { Avatar } from '@nextui-org/react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import LogInOutButton from './LogInOutButton';
 
 const list = [
@@ -11,19 +12,24 @@ const list = [
   { label: 'My profile', link: '/home/profile' },
 ];
 export default function UserProfile() {
-  // const { data } = useSession();
-  const data = JSON.parse(localStorage.getItem('user'));
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const curUser = localStorage.getItem('user');
+    console.log(curUser, 'get user on login');
+    setUserData(JSON.parse(curUser));
+  }, []);
+  // const data = JSON.parse(localStorage.getItem('user'));
   // get from local storage if not set in local
   return (
     <div className="flex flex-col items-center justify-center">
-      {data && (
+      {userData && (
         <>
-          <Avatar src={data.user.image} className="w-20 h-20 text-large" />
-          <div className="my-2">{data.user.email}</div>
-          <div className="mb-6 text-Emerald-400">@{data.user.name}</div>
+          <Avatar src={userData.user.image} className="w-20 h-20 text-large" />
+          <div className="my-2">{userData.user.email}</div>
+          <div className="mb-6 text-Emerald-400">@{userData.user.name}</div>
         </>
       )}
-      {data &&
+      {userData &&
         list.map((item) => (
           <Link
             key={item.label}

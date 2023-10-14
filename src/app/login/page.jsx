@@ -15,7 +15,7 @@ const LoginPage = () => {
   useEffect(() => {
     const curUser = localStorage.getItem('user');
     console.log(curUser, 'get user on login');
-    setUser(curUser);
+    setUser(JSON.parse(curUser));
   }, []);
 
   const {
