@@ -2,12 +2,15 @@ import { Progress } from '@nextui-org/react';
 import { useRef, useState } from 'react';
 import { PAHButton } from './PAHButton';
 
-const AudioRecorder = () => {
+const AudioRecorder = ({ type = 'Profile', questionID = 0 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [recordTime, setRecordTime] = useState(0);
+  const [status, setStatus] = useState('');
   const mediaRecorder = useRef(null);
   const recordInterval = useRef(null);
+  let recordedBlob = useRef(null);
+  // let recordedBlob = null;
   const audio = useRef(null);
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -39,6 +42,7 @@ const AudioRecorder = () => {
       // 创建一个音频元素来播放录制的音频
       audio.current = new Audio(audioUrl);
       // audio.play();
+      recordedBlob.current = e.data;
     };
   };
 
@@ -62,11 +66,34 @@ const AudioRecorder = () => {
     }
   };
   const uploadRecording = () => {
-    mediaRecorder.current.ondataavailable = (e) => {
-      const audioUrl = URL.createObjectURL(e.data);
-      const audio = new Audio(audioUrl);
-      audio.play();
-    };
+    if (recordedBlob.current) {
+      console.log(recordedBlob.current, 'enter');
+      // 创建一个 FormData 对象来存储音频数据
+      const formData = new FormData();
+      formData.append('audio', recordedBlob.current, 'recordedAudio.webm');
+      // 使用 fetch 发送音频数据到后端
+      const URL = type === 'Profile' ? '/api/users' : '/api/sounds';
+      fetch(URL, {
+        method: 'POST',
+        body: {
+          questionID,
+          answer: formData,
+          type: 'audio',
+        },
+      })
+        .then((response) => response.json()) // assuming server responds with json
+        .then((data) => {
+          if (data.code == '200') {
+            setStatus('success');
+            exitRecording();
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    } else {
+      console.warn('No recorded audio to upload.');
+    }
   };
 
   return (
@@ -130,15 +157,20 @@ const AudioRecorder = () => {
           </PAHButton>
         </div>
       ) : (
-        <PAHButton
-          onClick={startRecording}
-          frontColor="bg-black"
-          backColor="bg-white-500"
-          width="w-44"
-          textColor="text-white"
-        >
-          Start
-        </PAHButton>
+        <div>
+          <PAHButton
+            onClick={startRecording}
+            frontColor="bg-black"
+            backColor="bg-white-500"
+            width="w-44"
+            textColor="text-white"
+          >
+            Start
+          </PAHButton>
+          {status == 'success' && (
+            <span className="text-red-500">successfully upload</span>
+          )}
+        </div>
       )}
     </div>
   );
