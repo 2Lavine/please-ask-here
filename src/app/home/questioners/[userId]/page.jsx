@@ -34,7 +34,7 @@ export default async function Page({ params }) {
 
   return (
     <div className="w-9/12 mx-auto">
-      <div className="flex items-center p-4 mb-4">
+      {/* <div className="flex items-center p-4 mb-4">
         <div className="mr-4">
           <p className="text-black font-semibold underline ">
             Martin Tobias (Pre-Seed VC)
@@ -44,7 +44,7 @@ export default async function Page({ params }) {
         <div className=" pl-4 underline">
           <div className=" font-semibold">Asks</div>
         </div>
-      </div>
+      </div> */}
       <UserDetailCard {...UserDetailCardargs} />
       {/* <h1 className="text-xl font-bold my-8">All Q&A</h1> */}
       <div className="h-8"></div>

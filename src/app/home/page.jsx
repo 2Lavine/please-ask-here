@@ -1,17 +1,8 @@
-import CategoryTabs from '@/components/CategoryTabs';
 import MsgCardList from '@/components/MsgCardList';
 import QuestionList from '@/components/QuestionList';
-import UserCardList from '@/components/UserCardList';
 import Link from 'next/link';
-const categories = [
-  { label: 'All', icon: '🟢' },
-  { label: 'Education', icon: '📚' },
-  { label: 'AI', icon: '🤖' },
-  { label: 'Business', icon: '💼' },
-  { label: 'Career', icon: '🌱' },
-  { label: 'Crypto', icon: '💎' },
-  { label: 'Influencer', icon: '📸' },
-];
+import HomeSenseis from './HomeSenseis';
+
 export default function Page() {
   return (
     <div className="flex flex-col">
@@ -26,20 +17,7 @@ export default function Page() {
         </Link>
       </div>
       <QuestionList />
-      <div className="p-4 flex justify-between">
-        <h1 className="text-xl font-bold">Sensei Category</h1>
-      </div>
-      <CategoryTabs categories={categories} />
-      <div className="p-4 flex justify-between">
-        <h1 className="text-xl font-bold">Recommended</h1>
-        <Link
-          href="/home/senseis"
-          className="text-blue-500 hover:text-blue-700"
-        >
-          See all
-        </Link>
-      </div>
-      <UserCardList />
+      <HomeSenseis />
     </div>
   );
 }
