@@ -27,10 +27,10 @@ export default function FundsButton({ width = 'w-32' }) {
   }, []);
   const postMoney = () => {
     // console.log(money, moneyType);
-    fetch('/api/addMoney', {
+    fetch(`/api/user/${userData.user.userID}/bill`, {
       method: 'POST',
       body: JSON.stringify({
-        userID: userData.user.id,
+        userID: userData.user.userID || 1,
         money,
         type: 'USDT',
       }),
