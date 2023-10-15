@@ -1,27 +1,32 @@
+'use client';
 import { Avatar } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 export function PAHAvatar({
   audioSrc = 'https://openask-prd-public.oss-us-west-1.aliyuncs.com/3bebe5bb153142e5a0bb10fe4f3cf9ba/1694109802816_h5_audio-free.mp3',
-  imgSrc,
+  imgSrc = 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(new Audio(audioSrc));
+  const [audio, setAudio] = useState(null);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
   const controlAudio = () => setIsPlaying(!isPlaying);
   useEffect(() => {
-    isPlaying ? audio.play() : audio.pause();
-    setDuration(audio.duration);
+    // Get the value from local storage if it exists
+    setAudio(new Audio(audioSrc));
+  }, [audioSrc]);
+  useEffect(() => {
+    isPlaying ? audio?.play() : audio?.pause();
+    setDuration(audio?.duration);
   }, [isPlaying, audio]);
 
   useEffect(() => {
     const handleTimeUpdate = () => {
-      setCurrentTime(audio.currentTime);
+      setCurrentTime(audio?.currentTime);
     };
-    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio?.addEventListener('timeupdate', handleTimeUpdate);
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio?.removeEventListener('timeupdate', handleTimeUpdate);
     };
   }, [audio]);
   return (

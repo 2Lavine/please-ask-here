@@ -5,7 +5,7 @@ import Recorder from '@/components/Recorder';
 import { UserDetailCard } from '@/components/UserDetailCard';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-export default function Page() {
+export default function ProfilePage() {
   const { register, handleSubmit } = useForm();
   const [userData, setUserData] = useState(null);
   useEffect(() => {
@@ -27,7 +27,15 @@ export default function Page() {
           type: 'SHOW',
           userDescription: userData?.userDescription || `Entrepreneur, ...`,
         }
-      : {};
+      : {
+          name: 'John Doe',
+          followers: 46,
+          answersNumber: 46,
+          imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
+          big: false,
+          type: 'SHOW',
+          userDescription: 'Entrepreneur, ...',
+        };
   }, [userData]);
   const onSubmit = (data) => {
     fetch('/api/users', {
