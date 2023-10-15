@@ -20,6 +20,22 @@ export default function Page() {
         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     },
   ];
+  const handleDelete = (questionID) => {
+    // 过滤出未被删除的问题
+    const updatedQuestions = questions.filter(
+      (question) => question.questionID !== questionID
+    );
+    setQuestions(updatedQuestions); // 更新状态
+    //TODO: 发送请求到后端删除问题
+    fetch(`/api/questions/${questionID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+  };
   useEffect(() => {
     const userData = localStorage.getItem('user') || '';
     // setUserData(JSON.parse(userData));
@@ -34,7 +50,7 @@ export default function Page() {
       .then((res) => res.json())
       .then((res) => {
         const question = res.content.map((item) => {
-          return { ...item, big: true };
+          return { ...item, big: true, isQuestioner: true };
         });
         setQuestions(question);
       });
@@ -57,7 +73,11 @@ export default function Page() {
           <Tab key={item.id} title={item.label}>
             {questions.length ? (
               questions.map((question) => (
-                <QuestionCard {...question} key={question.questionID} />
+                <QuestionCard
+                  {...question}
+                  key={question.questionID}
+                  onDelete={handleDelete}
+                />
               ))
             ) : (
               <div

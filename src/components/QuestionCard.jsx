@@ -1,16 +1,21 @@
 'use client';
 import { QuestionBaseCard } from '@/components/QuestionBaseCard';
+import Recorder from '@/components/Recorder';
+import { ErrorMessage } from '@hookform/error-message';
 import {
   Avatar,
   AvatarGroup,
   Card,
   CardFooter,
   Divider,
+  Textarea,
 } from '@nextui-org/react';
+import { message } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { PAHButton } from './PAHButton';
 export function QuestionCard(props) {
-  const router = useRouter();
   const {
     userName,
     answerTime,
@@ -19,9 +24,47 @@ export function QuestionCard(props) {
     big,
     questionDes,
     isDetail,
-    questioneID = 1,
-    // loveNumber,
+    questionID = 1,
+    paidNumber = 10,
+    paid = true,
+    isQuestioner = false,
+    onDelete,
   } = props;
+  const [showInput, setShowInput] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Successfully answered the question',
+    });
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const toggleInput = () => {
+    setShowInput(!showInput);
+  };
+  const onSubmit = (data) => {
+    fetch('/api/questions', {
+      method: 'POST',
+      body: JSON.stringify({
+        answer: data.answer,
+        questionID: props.questionID,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.code == '200') {
+          toggleInput();
+          success();
+          onDelete(questionID);
+        }
+      });
+  };
+  const router = useRouter();
   // let likeNumber = 46;
   const QuestionBaseArgs = {
     userName,
@@ -29,6 +72,8 @@ export function QuestionCard(props) {
     questionTime,
     imgSrc,
     big,
+    paid,
+    paidNumber,
   };
   const [Liked, setLiked] = useState(false);
   // const [likeNumber, setLikeNumber] = useState(loveNumber); // [46, 47
@@ -50,15 +95,19 @@ export function QuestionCard(props) {
     }
   };
   const goToQuestions = () => {
-    console.log(questioneID);
-    router.push('/home/questions/' + questioneID);
+    console.log(questionID);
+    router.push('/home/questions/' + questionID);
   };
   return (
     <div>
+      {contextHolder}
       <Card className="w-full px-6 py-4 mb-8">
         <div>
           {isDetail ? (
-            <div onClick={goToQuestions} className="cursor-pointer">
+            <div
+              onClick={!isQuestioner ? goToQuestions : toggleInput}
+              className="cursor-pointer"
+            >
               <div className="font-bold">Anonymous User</div>
               <div className="text-sm mb-2 text-gray-400 ">
                 Paid $20 for this question
@@ -104,7 +153,7 @@ export function QuestionCard(props) {
             )}
             <div
               className="flex items-center justify-center mr-4"
-              onClick={() => likeQuestion(questioneID)}
+              onClick={() => likeQuestion(questionID)}
             >
               {Liked ? (
                 <span className="i-material-symbols-heart-check-rounded text-xl cursor-pointer" />
@@ -119,6 +168,41 @@ export function QuestionCard(props) {
               <div className="mx-2">46</div>
             </div>
           </div>
+          {showInput && (
+            <form className="w-full">
+              <Divider className="my-4" />
+              <div className="w-full ">
+                <ErrorMessage
+                  errors={errors}
+                  name="question"
+                  render={({ message }) => (
+                    <p className="text-red-500">{message}</p>
+                  )}
+                />
+                <Textarea
+                  placeholder="Ask anything to Martin Tobias (Pre-Seed VC)"
+                  variant="bordered"
+                  className="w-full"
+                  minRows="5"
+                  aria-label="Ask anything to Martin Tobias (Pre-Seed VC)"
+                  classNames={{
+                    inputWrapper: ' outline-none hover:ring-2	ring-blue-500',
+                  }}
+                  {...register('answer', {
+                    required: true,
+                    message: 'Please input your answer',
+                  })}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2 font-bold">or use Voice</label>
+                <Recorder type="Answer" />
+              </div>
+              <PAHButton width="w-full" onClick={handleSubmit(onSubmit)}>
+                SUBMIT
+              </PAHButton>
+            </form>
+          )}
         </CardFooter>
       </Card>
     </div>

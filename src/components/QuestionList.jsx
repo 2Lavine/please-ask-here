@@ -10,6 +10,7 @@ async function getData() {
       imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
       big: false,
       isDetail: false,
+      paid: false,
     },
     {
       userName: 'User Name',
