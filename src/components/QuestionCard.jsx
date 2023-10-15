@@ -7,8 +7,10 @@ import {
   CardFooter,
   Divider,
 } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 export function QuestionCard(props) {
+  const router = useRouter();
   const {
     userName,
     answerTime,
@@ -16,8 +18,8 @@ export function QuestionCard(props) {
     imgSrc,
     big,
     questionDes,
-    id,
     isDetail,
+    questioneID = 1,
     // loveNumber,
   } = props;
   // let likeNumber = 46;
@@ -47,20 +49,29 @@ export function QuestionCard(props) {
       });
     }
   };
+  const goToQuestions = () => {
+    console.log(questioneID);
+    router.push('/home/questions/' + questioneID);
+  };
   return (
     <div>
       <Card className="w-full px-6 py-4 mb-8">
-        <div className="">
+        <div>
           {isDetail ? (
-            <>
+            <div onClick={goToQuestions} className="cursor-pointer">
               <div className="font-bold">Anonymous User</div>
               <div className="text-sm mb-2 text-gray-400 ">
                 Paid $20 for this question
               </div>
               <div className="text-md font-bold mb-6 ">{questionDes}</div>
-            </>
+            </div>
           ) : (
-            <div className="text-md font-bold mb-4 ">{questionDes}</div>
+            <div
+              onClick={goToQuestions}
+              className="text-md font-bold mb-4 cursor-pointer"
+            >
+              {questionDes}
+            </div>
           )}
           <QuestionBaseCard {...QuestionBaseArgs} />
         </div>
@@ -93,7 +104,7 @@ export function QuestionCard(props) {
             )}
             <div
               className="flex items-center justify-center mr-4"
-              onClick={() => likeQuestion(id)}
+              onClick={() => likeQuestion(questioneID)}
             >
               {Liked ? (
                 <span className="i-material-symbols-heart-check-rounded text-xl cursor-pointer" />

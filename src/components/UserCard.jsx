@@ -1,9 +1,15 @@
 'use client';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 import { PAHAvatar } from './PAHAvatar';
 import { PAHButton } from './PAHButton';
 export function UserCard(props) {
-  const { followers, answersNumber, userDescription } = props;
+  const { userID, followers, answersNumber, userDescription } = props;
+  const router = useRouter();
+  const gotoUserDetail = (id) => {
+    console.log(id, 'herere');
+    router.push(`/home/questioners/${id}`);
+  };
   return (
     <>
       <Card
@@ -37,6 +43,7 @@ export function UserCard(props) {
             backColor="bg-black"
             textColor="bg-white"
             width="w-28"
+            onClick={() => gotoUserDetail(userID)}
           >
             ASK ME
           </PAHButton>

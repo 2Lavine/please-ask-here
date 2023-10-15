@@ -1,67 +1,80 @@
 'use client';
-import CategoryTabs from '@/components/CategoryTabs';
-import { UserDetailCard } from '@/components/UserDetailCard';
-import { Select, SelectItem } from '@nextui-org/react';
+import { QuestionCard } from '@/components/QuestionCard';
+import { Input, Select, SelectItem } from '@nextui-org/react';
+import { useEffect, useState } from 'react';
 export default function Page() {
-  const UserDetailCardargs = {
-    followers: 46,
-    answersNumber: 47,
-    imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
-    big: false,
-    type: 'SHOW',
-    userDescription: `Entrepreneur, Investor, Father to 3 daughters, cyclist, surfer, poker player, and life hacker. Pre-seed up to $500K. pitch me: t.co/pat53we2xs.All proceeds to Charity. 
-    Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
-  };
-  const UserListargs = [
-    UserDetailCardargs,
-    UserDetailCardargs,
-    UserDetailCardargs,
-  ];
+  const [questions, setQuestions] = useState([]);
+  const [orderType, setOrderType] = useState(['timeDes']);
+  const [search, setSearch] = useState('');
+
   const order = [
     {
-      value: 'new to old',
+      value: 'timeDes',
       label: 'New to Old',
     },
+    {
+      value: 'timeAsc',
+      label: 'Old to New',
+    },
   ];
+  useEffect(() => {
+    const URL = `/api/questions?orderType=${orderType[0]}&search=${search}`;
+    fetch(URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.content);
+        setQuestions(res.content);
+      });
+  }, [orderType, search]);
   return (
     <div className="w-9/12 mx-auto">
       <div className="flex items-center p-4  justify-between">
         <div className="flex">
           <div className="mr-4">
-            <p className="text-black font-semibold underline ">
-              Martin Tobias (Pre-Seed VC)
+            <p className="text-black text2-2xl font-semibold  ">
+              All Questions
             </p>
           </div>
-          <div>/</div>
-          <div className=" pl-4 underline">
-            <div className=" font-semibold">Asks</div>
-          </div>
         </div>
-        <Select
-          label="Sort by"
-          placeholder="Followers"
-          // labelPlacement="outside-left"
-          className="w-48 text-black"
-          classNames={{
-            trigger: 'bg-white',
-            // label: 'w-24 ',
-          }}
-        >
-          {order.map((item) => (
-            <SelectItem key={item.value} value={item.value}>
-              {item.label}
-            </SelectItem>
-          ))}
-        </Select>
+        <div className="flex space-x-2">
+          <Input
+            label="Search"
+            // labelPlacement="outside-left"
+            classNames={{
+              inputWrapper: 'h-full bg-white',
+            }}
+            className="w-64 text-black"
+            placeholder="Start Search"
+            value={search}
+            onValueChange={setSearch}
+          />
+          <Select
+            label="Sort by"
+            placeholder="Followers"
+            className="w-36 text-black"
+            selectedKeys={orderType}
+            onSelectionChange={setOrderType}
+            classNames={{
+              trigger: 'bg-white',
+            }}
+          >
+            {order.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </Select>
+        </div>
       </div>
-      <CategoryTabs />{' '}
-      {UserListargs.map((item) => (
-        <>
-          <UserDetailCard {...item} key={item.userDescription} />
-          <div className="h-8"></div>
-        </>
+      {questions.map((question) => (
+        <QuestionCard {...question} key={question.questionID} />
       ))}
-      {/* <UserDetailCard {...UserDetailCardargs} /> */}
+      <div className="h-8"></div>
     </div>
   );
 }

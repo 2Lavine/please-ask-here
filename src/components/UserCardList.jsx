@@ -2,6 +2,7 @@ import { UserCard } from '@/components/UserCard';
 async function getData() {
   const content = [
     {
+      userID: 1,
       followers: 46,
       answersNumber: 47,
       userDescription: `Founder of @ProductHunt. Investor at @WeekendFund. Writing about fun(d) stuff at t.co/tsunRiiECA with @vedikaja_in. Say hi! Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
@@ -9,6 +10,7 @@ async function getData() {
       big: false,
     },
     {
+      userID: 3,
       followers: 46,
       answersNumber: 47,
       userDescription: `Founder of @ProductHunt. Investor at @WeekendFund. Writing about fun(d) stuff at t.co/tsunRiiECA with @vedikaja_in. Say hi! Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
@@ -16,6 +18,7 @@ async function getData() {
       big: false,
     },
     {
+      userID: 2,
       followers: 46,
       answersNumber: 47,
       userDescription: `Founder of @ProductHunt. Investor at @WeekendFund. Writing about fun(d) stuff at t.co/tsunRiiECA with @vedikaja_in. Say hi! Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
@@ -39,10 +42,11 @@ async function getData() {
 }
 export default async function UserCardList() {
   const userCardList = await getData();
+
   return (
     <div className="flex flex-wrap items-center justify-between">
       {userCardList.map((userCard) => (
-        <UserCard {...userCard} key={userCard.userDescription} />
+        <UserCard {...userCard} key={userCard.userID} />
       ))}
     </div>
   );

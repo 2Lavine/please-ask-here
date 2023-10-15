@@ -18,6 +18,7 @@ export default function QuestionSelect() {
     },
   ];
   const QuestionCardargs = {
+    questionID: 1,
     userName: 'User Name',
     answerTime: 'Answer Time',
     questionTime: '1:25',
@@ -28,8 +29,9 @@ export default function QuestionSelect() {
   };
   const AwaitingQuestionList = [
     QuestionCardargs,
-    QuestionCardargs,
-    QuestionCardargs,
+    { ...QuestionCardargs, questionID: 2 },
+    { ...QuestionCardargs, questionID: 3 },
+    // QuestionCardargs,
   ];
   return (
     <div className="flex flex-col w-full mx-auto">
@@ -47,7 +49,7 @@ export default function QuestionSelect() {
           <Tab key={item.id} title={item.label}>
             {AwaitingQuestionList.length ? (
               AwaitingQuestionList.map((item) => (
-                <QuestionCard {...item} key={item.questionDes} />
+                <QuestionCard {...item} key={item.questionID} />
               ))
             ) : (
               <div

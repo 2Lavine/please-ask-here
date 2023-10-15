@@ -3,6 +3,7 @@ import FundsButton from '@/components/FundsButton';
 import { PAHButton } from '@/components/PAHButton';
 import Recorder from '@/components/Recorder';
 import { UserDetailCard } from '@/components/UserDetailCard';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 export default function Page() {
   const UserDetailCardargs = {
@@ -10,15 +11,17 @@ export default function Page() {
     answersNumber: 47,
     imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
     big: false,
-    type: 'EDIT',
+    type: 'SHOW',
     userDescription: `Entrepreneur, Investor, Father to 3 daughters, cyclist, surfer, poker player, and life hacker. Pre-seed up to $500K. pitch me: t.co/pat53we2xs.All proceeds to Charity. 
         Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
   };
   const { register, handleSubmit } = useForm();
-  if (typeof window === 'undefined') {
-    return null;
-  }
-  const data = JSON.parse(localStorage.getItem('user'));
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const curUser = localStorage.getItem('user');
+    console.log(curUser, 'get user on login');
+    setUserData(JSON.parse(curUser));
+  }, []);
   const onSubmit = (data) => {
     fetch('/api/users', {
       method: 'POST',
@@ -43,7 +46,7 @@ export default function Page() {
             <input
               id="displayName"
               type="text"
-              value={data.user.name}
+              value={userData && userData.user.name}
               className="w-full p-2 border rounded"
               {...register('name', { required: true })}
             />
@@ -62,6 +65,7 @@ export default function Page() {
             <textarea
               id="bio"
               rows="3"
+              value={userData && userData.user.bio}
               className="w-full p-2 border rounded"
               {...register('bio', { required: true })}
             ></textarea>
@@ -95,7 +99,7 @@ export default function Page() {
         {
           // TODO add change photo
           /* <div className="flex items-center mb-4 space-x-4">
-          <Avatar src={data.user.image} className="w-20 h-20 text-large" />
+          <Avatar src={userData.user.image} className="w-20 h-20 text-large" />
           <PAHButton
             frontColor="bg-black"
             backColor="bg-white"
