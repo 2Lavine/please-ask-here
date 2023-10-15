@@ -1,6 +1,7 @@
 export async function POST(request) {
   return Response.json({
     questionID: 1,
+    code: 200,
   });
   // const res = await fetch('http://127.0.0.1:8080/api/users', {
   //   method: 'POST',
@@ -26,6 +27,7 @@ export async function GET(request) {
         imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
         big: false,
         isDetail: true,
+        paid: false,
       },
       {
         questionID: 2,

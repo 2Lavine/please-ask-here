@@ -12,18 +12,25 @@ import {
   Spacer,
   useDisclosure,
 } from '@nextui-org/react';
-import { useState } from 'react';
-export default function FundsButton() {
+import { useEffect, useState } from 'react';
+export default function FundsButton({ width = 'w-32' }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [money, setMoney] = useState(10);
-  const [moneyType, setMoneyType] = useState('USDT');
+  const [userData, setUserData] = useState(null);
+  const [moneyType, setMoneyType] = useState(['USDT']);
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const MoneyTypes = ['USDT', 'ETH', 'BTC'];
+  useEffect(() => {
+    // Get the value from local storage if it exists
+    const userData = localStorage.getItem('user') || '';
+    setUserData(JSON.parse(userData));
+  }, []);
   const postMoney = () => {
     // console.log(money, moneyType);
     fetch('/api/addMoney', {
       method: 'POST',
       body: JSON.stringify({
+        userID: userData.user.id,
         money,
         type: 'USDT',
       }),
@@ -43,7 +50,7 @@ export default function FundsButton() {
       <PAHButton
         frontColor="bg-black"
         backColor="bg-white"
-        width="w-32"
+        width={width}
         textColor="text-white"
         onClick={onOpen}
       >
@@ -92,7 +99,7 @@ export default function FundsButton() {
                     size="md"
                     variant="bordered"
                     className="basis-2/5 "
-                    selectedKeys={[moneyType]}
+                    selectedKeys={moneyType}
                     onSelectionChange={setMoneyType}
                     classNames={{
                       innerWrapper: 'p-0',
