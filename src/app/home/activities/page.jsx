@@ -21,10 +21,8 @@ export default function Page() {
     },
   ];
   useEffect(() => {
-    const userData = localStorage.getItem('user') || '';
-    // setUserData(JSON.parse(userData));
-    const curUser = JSON.parse(userData).user;
-    const userID = curUser.id || 1;
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    const userID = (userData.user && userData.user.id) || 1;
     fetch(`/api/users/${userID}/questions?type=${selected}`, {
       method: 'GET',
       headers: {

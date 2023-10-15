@@ -22,8 +22,8 @@ export default function FundsButton({ width = 'w-32' }) {
   const MoneyTypes = ['USDT', 'ETH', 'BTC'];
   useEffect(() => {
     // Get the value from local storage if it exists
-    const userData = localStorage.getItem('user') || '';
-    setUserData(JSON.parse(userData));
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    setUserData(userData);
   }, []);
   const postMoney = () => {
     // console.log(money, moneyType);

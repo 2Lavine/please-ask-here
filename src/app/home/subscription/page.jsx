@@ -16,10 +16,8 @@ export default function Page() {
   const [UserListargs, setUserListargs] = useState([]);
   const [orderType, setOrderType] = useState(['timeDes']);
   useEffect(() => {
-    const userData = localStorage.getItem('user') || '';
-    // setUserData(JSON.parse(userData));
-    const curUser = JSON.parse(userData).user;
-    const userID = curUser.id || 2;
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    const userID = (userData.user && userData.user.id) || 1;
     const type = orderType.values().next().value;
     fetch(`/api/users/${userID}/subscription?orderType=${type}`, {
       method: 'GET',
