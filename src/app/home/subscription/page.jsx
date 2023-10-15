@@ -2,31 +2,41 @@
 import { UserDetailCard } from '@/components/UserDetailCard';
 import { Select, SelectItem } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
+const order = [
+  {
+    value: 'timeDes',
+    label: 'New to Old',
+  },
+  {
+    value: 'timeAsc',
+    label: 'Old to New',
+  },
+];
 export default function Page() {
   const [UserListargs, setUserListargs] = useState([]);
+  const [orderType, setOrderType] = useState(new Set(['timeDes']));
   useEffect(() => {
-    fetch('/api/subscription?userID=' + 1, {
+    const userData = localStorage.getItem('user') || '';
+    // setUserData(JSON.parse(userData));
+    const curUser = JSON.parse(userData).user;
+    const userID = curUser.id || 2;
+    const type = orderType.values().next().value;
+    fetch(`/api/users/${userID}/subscription?orderType=${type}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
+      .then((res) => res.json())
       .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setUserListargs(res.subsctiption);
+        console.log(res.content);
+        setUserListargs(res.content);
       })
       .catch((error) => {
         console.error('Error fetching SUBSCRIPTION:', error);
       });
-  }, []);
-  const order = [
-    {
-      value: 'new to old',
-      label: 'New to Old',
-    },
-  ];
+  }, [orderType]);
+
   const unSubscribe = (questionersID) => {
     console.log('unSubscribe');
     setUserListargs(
@@ -64,6 +74,8 @@ export default function Page() {
             trigger: 'bg-white',
             // label: 'w-24 ',
           }}
+          selectedKeys={orderType}
+          onSelectionChange={setOrderType}
         >
           {order.map((item) => (
             <SelectItem key={item.value} value={item.value}>

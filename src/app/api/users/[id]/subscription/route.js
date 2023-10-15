@@ -13,6 +13,8 @@ export async function POST(request) {
 }
 export async function GET(request) {
   console.log(request.url, '=====');
+  console.log(request.url, '=====');
+  console.log(request.url, '=====');
   return Response.json({
     content: [
       {

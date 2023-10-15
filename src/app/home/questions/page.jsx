@@ -18,7 +18,8 @@ export default function Page() {
     },
   ];
   useEffect(() => {
-    const URL = `/api/questions?orderType=${orderType[0]}&search=${search}`;
+    const type = orderType.values().next().value;
+    const URL = `/api/questions?orderType=${type}&search=${search}`;
     fetch(URL, {
       method: 'GET',
       headers: {
@@ -44,7 +45,6 @@ export default function Page() {
         <div className="flex space-x-2">
           <Input
             label="Search"
-            // labelPlacement="outside-left"
             classNames={{
               inputWrapper: 'h-full bg-white',
             }}
