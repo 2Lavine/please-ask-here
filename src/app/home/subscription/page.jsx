@@ -14,7 +14,7 @@ const order = [
 ];
 export default function Page() {
   const [UserListargs, setUserListargs] = useState([]);
-  const [orderType, setOrderType] = useState(new Set(['timeDes']));
+  const [orderType, setOrderType] = useState(['timeDes']);
   useEffect(() => {
     const userData = localStorage.getItem('user') || '';
     // setUserData(JSON.parse(userData));

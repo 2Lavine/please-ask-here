@@ -3,25 +3,32 @@ import FundsButton from '@/components/FundsButton';
 import { PAHButton } from '@/components/PAHButton';
 import Recorder from '@/components/Recorder';
 import { UserDetailCard } from '@/components/UserDetailCard';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 export default function Page() {
-  const UserDetailCardargs = {
-    followers: 46,
-    answersNumber: 47,
-    imgSrc: 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
-    big: false,
-    type: 'SHOW',
-    userDescription: `Entrepreneur, Investor, Father to 3 daughters, cyclist, surfer, poker player, and life hacker. Pre-seed up to $500K. pitch me: t.co/pat53we2xs.All proceeds to Charity. 
-        Ask me about: StartupBuilding, Fundraising, EarlyStageInvesting`,
-  };
   const { register, handleSubmit } = useForm();
   const [userData, setUserData] = useState(null);
   useEffect(() => {
     const curUser = localStorage.getItem('user');
     console.log(curUser, 'get user on login');
-    setUserData(JSON.parse(curUser));
+    setUserData(JSON.parse(curUser).user);
   }, []);
+  const UserDetailCardargs = useMemo(() => {
+    console.log(userData, 'user data');
+    return userData
+      ? {
+          name: userData?.name || 'John Doe',
+          followers: userData?.followers || 46,
+          answersNumber: userData?.answersNumber || 46,
+          imgSrc:
+            userData?.imgSrc ||
+            'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
+          big: false,
+          type: 'SHOW',
+          userDescription: userData?.userDescription || `Entrepreneur, ...`,
+        }
+      : {};
+  }, [userData]);
   const onSubmit = (data) => {
     fetch('/api/users', {
       method: 'POST',
@@ -46,7 +53,7 @@ export default function Page() {
             <input
               id="displayName"
               type="text"
-              value={userData && userData.user.name}
+              value={userData && userData?.name}
               className="w-full p-2 border rounded"
               {...register('name', { required: true })}
             />
@@ -65,7 +72,7 @@ export default function Page() {
             <textarea
               id="bio"
               rows="3"
-              value={userData && userData.user.bio}
+              value={userData && userData?.userDescription}
               className="w-full p-2 border rounded"
               {...register('bio', { required: true })}
             ></textarea>

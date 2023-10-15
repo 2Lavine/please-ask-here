@@ -22,6 +22,9 @@ const MoneyTypes = ['USDT', 'ETH', 'BTC'];
 export function UserDetailCard(props) {
   const {
     followers = 46,
+    userName = 'Martin Tobias',
+    userLINk = 'martintobias',
+    userBalance = 0,
     answersNumber,
     userDescription,
     type = 'SHOW',
@@ -107,8 +110,8 @@ export function UserDetailCard(props) {
             <div className="flex-1 ml-6 ">
               <div className="flex justify-between">
                 <div className="flex flex-col">
-                  <div className="font-bold">userName</div>
-                  <div className="font-medium">@Link</div>
+                  <div className="font-bold">{userName}</div>
+                  <div className="font-medium">@{userLINk}</div>
                 </div>
                 {type == 'SHOW' && follow && (
                   <div className="flex space-x-4">
@@ -202,7 +205,7 @@ export function UserDetailCard(props) {
           </div>
         </CardHeader>
         <CardBody className="py-0 px-4 mb-2 flex items-center justify-center">
-          <p className="text font-light mt-4">{userDescription}</p>
+          <p className="text font-light mt-4 w-full">{userDescription}</p>
         </CardBody>
         {type == 'INPUT' && (
           <form className="w-full">
@@ -276,7 +279,7 @@ export function UserDetailCard(props) {
             <div className="px-4 mt-4 flex justify-between items-center w-full">
               <div className="text-sm">
                 Your USD balance
-                <span className="font-bold">$0</span>
+                <span className="font-bold">${userBalance}</span>
               </div>
               <FundsButton />
             </div>
