@@ -1,28 +1,33 @@
 import { Avatar } from '@nextui-org/react';
-import { useState } from 'react';
-export function PAHAvatar(props) {
+import { useEffect, useState } from 'react';
+export function PAHAvatar({
+  audioSrc = 'https://openask-prd-public.oss-us-west-1.aliyuncs.com/3bebe5bb153142e5a0bb10fe4f3cf9ba/1694109802816_h5_audio-free.mp3',
+  imgSrc,
+}) {
   const [isPlaying, setIsPlaying] = useState(false);
-  //   const audio = new Audio(props.audioSrc);
-  const audio = { play: () => '', stop: () => '' };
+  const [audio] = useState(new Audio(audioSrc));
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
-  const controlAudio = (audio) => {
-    if (!audio) return;
-    if (!isPlaying) {
-      audio.play();
-    } else {
-      audio.stop();
-    }
-    setIsPlaying((isPlaying) => !isPlaying);
-  };
-  // let AvatarClassNames = {
-  //   base: 'ring-2',
-  //   img: 'hover:brightness-50',
-  // };
-  // console.log(AvatarClassNames.img, 'AvatarClassNames.img', isPlaying);
+  const controlAudio = () => setIsPlaying(!isPlaying);
+  useEffect(() => {
+    isPlaying ? audio.play() : audio.pause();
+    setDuration(audio.duration);
+  }, [isPlaying, audio]);
+
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [audio]);
   return (
     <div className="relative rounded-full ml-2 group '">
       <Avatar
-        src={props.imgSrc}
+        src={imgSrc}
         size="lg"
         radius="full"
         isBordered
@@ -37,7 +42,7 @@ export function PAHAvatar(props) {
       ></Avatar>
       {isPlaying ? (
         <div
-          onClick={() => controlAudio(audio)}
+          onClick={controlAudio}
           className="pointer-events-auto cursor-pointer absolute top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
           <svg
@@ -52,7 +57,7 @@ export function PAHAvatar(props) {
         </div>
       ) : (
         <div
-          onClick={() => controlAudio(audio)}
+          onClick={controlAudio}
           className="cursor-pointer pointer-events-auto opacity-0 hover:opacity-100 absolute top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
           <svg

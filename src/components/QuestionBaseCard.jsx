@@ -17,11 +17,7 @@ export function QuestionBaseCard(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [userData, setUserData] = useState(null);
   const router = useRouter();
-  useEffect(() => {
-    // Get the value from local storage if it exists
-    const userData = localStorage.getItem('user') || '';
-    setUserData(JSON.parse(userData));
-  }, []);
+
   const {
     paid = 'true',
     imgSrc,
@@ -33,19 +29,34 @@ export function QuestionBaseCard(props) {
     questionTime = '00:00',
     big = false,
     isFree = false,
+    audioSrc = 'https://openask-prd-public.oss-us-west-1.aliyuncs.com/3bebe5bb153142e5a0bb10fe4f3cf9ba/1694109802816_h5_audio-free.mp3',
   } = props;
-  const audio = { play: () => '', stop: () => '' };
-  const playAudion = (audio) => {
-    if (!paid) {
-      return;
-    }
-    audio.play();
-    setIsPlaying(true);
-  };
-  const stopAudio = (audio) => {
-    audio.stop();
-    setIsPlaying(false);
-  };
+  const [audio] = useState(new Audio(audioSrc));
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const controlAudio = () => setIsPlaying(!isPlaying);
+  useEffect(() => {
+    // Get the value from local storage if it exists
+    const userData = localStorage.getItem('user') || '';
+    setUserData(JSON.parse(userData));
+  }, []);
+  useEffect(() => {
+    isPlaying ? audio.play() : audio.pause();
+    setDuration(Math.floor(audio.duration));
+  }, [isPlaying, audio]);
+
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+      if (Math.floor(audio.currentTime) == Math.floor(audio.duration)) {
+        setIsPlaying(false);
+      } else setCurrentTime(Math.floor(audio.currentTime));
+    };
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [audio]);
+
   const payMoney = () => {
     const URL = `/api/questions/${questionID}/transaction`;
     fetch(URL, {
@@ -84,7 +95,7 @@ export function QuestionBaseCard(props) {
             {isFree || paid ? (
               isPlaying ? (
                 <div
-                  onClick={() => stopAudio(audio)}
+                  onClick={controlAudio}
                   className="cursor-pointer	absolute top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                 >
                   <svg
@@ -99,7 +110,7 @@ export function QuestionBaseCard(props) {
                 </div>
               ) : (
                 <div
-                  onClick={() => playAudion(audio)}
+                  onClick={controlAudio}
                   className="cursor-pointer	absolute top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                 >
                   <svg
@@ -187,7 +198,8 @@ export function QuestionBaseCard(props) {
         aria-label="Loading..."
         color="success"
         radius="lg"
-        value={30}
+        value={currentTime}
+        maxValue={duration}
       />
     </div>
   );
