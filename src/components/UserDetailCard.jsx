@@ -21,7 +21,7 @@ import { PAHButton } from './PAHButton';
 const MoneyTypes = ['USDT', 'ETH', 'BTC'];
 export function UserDetailCard(props) {
   const {
-    followers,
+    followers = 46,
     answersNumber,
     userDescription,
     type = 'SHOW',
@@ -30,6 +30,7 @@ export function UserDetailCard(props) {
     followed = false,
   } = props;
   const [follow, setFollow] = useState(followed);
+  const [followNumber, setFollowNumber] = useState(followers);
   const router = useRouter();
   const goToQuestioners = () => {
     console.log(questionersID);
@@ -42,6 +43,7 @@ export function UserDetailCard(props) {
   } = useForm();
   const followeQuestioner = () => {
     setFollow(true);
+    setFollowNumber(followNumber + 1);
     fetch('/api/subscription', {
       method: 'POST',
       headers: {
@@ -54,6 +56,7 @@ export function UserDetailCard(props) {
   };
   const unfollowQuestioner = () => {
     setFollow(false);
+    setFollowNumber(followNumber - 1);
     fetch('/api/subscription', {
       method: 'DELETE',
       headers: {
@@ -187,7 +190,7 @@ export function UserDetailCard(props) {
               <div className="flex flex-row items-center content-baseline">
                 <span className="i-simple-icons-answer" />
                 <div className="mx-2  text-gray-400">
-                  {followers} followers{' '}
+                  {followNumber} followers
                 </div>
                 <span className="i-fluent-divider-tall-24-regular ml-2 mr-4" />
                 <span className="i-simple-icons-answer" />
@@ -195,8 +198,6 @@ export function UserDetailCard(props) {
                   {answersNumber} answers
                 </div>
               </div>
-              {/*TODO: add follow button*/}
-              {/*<div className="absolute top-0 right-0"></div> */}
             </div>
           </div>
         </CardHeader>

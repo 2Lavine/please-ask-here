@@ -2,6 +2,7 @@ import { QuestionCard } from '@/components/QuestionCard';
 async function getData() {
   const content = [
     {
+      questionID: 1,
       userName: 'User Name',
       answerTime: 'Answer Time',
       questionTime: '1:25',
@@ -13,6 +14,7 @@ async function getData() {
       paid: false,
     },
     {
+      questionID: 2,
       userName: 'User Name',
       answerTime: 'Answer Time',
       questionTime: '1:25',
@@ -44,7 +46,7 @@ export default async function QuestionList() {
   return (
     <div className="flex items-center justify-between space-x-8">
       {questionList.map((question) => (
-        <QuestionCard {...question} key={question.questionDes} />
+        <QuestionCard {...question} key={question.questionID} />
       ))}
     </div>
   );

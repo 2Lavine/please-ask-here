@@ -28,6 +28,7 @@ export function QuestionCard(props) {
     paidNumber = 10,
     paid = true,
     isQuestioner = false,
+    likePeople = 46,
     onDelete,
   } = props;
   const [showInput, setShowInput] = useState(false);
@@ -65,7 +66,6 @@ export function QuestionCard(props) {
       });
   };
   const router = useRouter();
-  // let likeNumber = 46;
   const QuestionBaseArgs = {
     userName,
     answerTime,
@@ -76,8 +76,7 @@ export function QuestionCard(props) {
     paidNumber,
   };
   const [Liked, setLiked] = useState(false);
-  // const [likeNumber, setLikeNumber] = useState(loveNumber); // [46, 47
-  const [likeNumber, setLikeNumber] = useState(46); // [46, 47
+  const [likeNumber, setLikeNumber] = useState(likePeople); // [46, 47]
   const likeQuestion = (id) => {
     setLiked(!Liked);
     if (!Liked) {
@@ -100,7 +99,6 @@ export function QuestionCard(props) {
   };
   return (
     <div>
-      {contextHolder}
       <Card className="w-full px-6 py-4 mb-8">
         <div>
           {isDetail ? (
@@ -168,6 +166,7 @@ export function QuestionCard(props) {
               <div className="mx-2">46</div>
             </div>
           </div>
+          {contextHolder}
           {showInput && (
             <form className="w-full">
               <Divider className="my-4" />

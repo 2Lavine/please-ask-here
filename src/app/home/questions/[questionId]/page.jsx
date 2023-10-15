@@ -49,7 +49,7 @@ async function getData(id) {
   //   headers: {
   //     'Content-Type': 'application/json',
   //   },
-  //   cache: 'no-store' 
+  //   cache: 'no-store'
   // });
   // if (!res.ok) {
   //   throw new Error('Failed to fetch data');
@@ -85,7 +85,7 @@ export default async function Page({ params }) {
       <UserDetailCard {...questioner} />
       <h1 className="text-xl font-bold my-8">Recommend Q&A</h1>
       {questionList.map((item) => (
-        <QuestionCard {...item} key={item.questionDes} />
+        <QuestionCard {...item} key={item.questionID} />
       ))}
     </div>
   );
