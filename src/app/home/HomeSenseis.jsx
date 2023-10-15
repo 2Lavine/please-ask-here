@@ -53,7 +53,7 @@ export default function HomeSenseis() {
           See all
         </Link>
       </div>
-      <div className="flex flex-wrap items-center justify-start">
+      <div className="flex flex-wrap items-center justify-between">
         {senseis.map((userCard) => (
           <UserCard {...userCard} key={userCard.userID} />
         ))}

@@ -17,20 +17,31 @@ import { useForm } from 'react-hook-form';
 import { PAHButton } from './PAHButton';
 export function QuestionCard(props) {
   const {
-    userName,
-    answerTime,
-    questionTime,
-    imgSrc,
-    big,
-    questionDes,
-    isDetail,
+    userName = 'Anonymous User',
+    answerTime = '00:00',
+    questionTime = '00:00',
+    imgSrc = 'https://openask.me/assets/donation-5@2x-f6c8ed0a.png',
+    big = false,
+    questionDes = 'Ask anything to Martin Tobias (Pre-Seed VC)',
+    isDetail = false,
     questionID = 1,
     paidNumber = 10,
     paid = true,
     isQuestioner = false,
     likePeople = 46,
     onDelete,
+    answerContent,
   } = props;
+  const QuestionBaseArgs = {
+    userName,
+    answerTime,
+    questionTime,
+    imgSrc,
+    big,
+    paid,
+    paidNumber,
+    answerContent,
+  };
   const [showInput, setShowInput] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
@@ -66,15 +77,7 @@ export function QuestionCard(props) {
       });
   };
   const router = useRouter();
-  const QuestionBaseArgs = {
-    userName,
-    answerTime,
-    questionTime,
-    imgSrc,
-    big,
-    paid,
-    paidNumber,
-  };
+
   const [Liked, setLiked] = useState(false);
   const [likeNumber, setLikeNumber] = useState(likePeople); // [46, 47]
   const likeQuestion = (id) => {

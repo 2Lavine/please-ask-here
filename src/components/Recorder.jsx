@@ -1,3 +1,4 @@
+'use client';
 import { Progress } from '@nextui-org/react';
 import { useRef, useState } from 'react';
 import { PAHButton } from './PAHButton';

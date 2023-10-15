@@ -34,6 +34,7 @@ export function UserDetailCard(props) {
   } = props;
   const [follow, setFollow] = useState(followed);
   const [followNumber, setFollowNumber] = useState(followers);
+  const [moneyType, setMoneyType] = useState(['USDT']);
   const router = useRouter();
   const goToQuestioners = () => {
     console.log(questionersID);
@@ -256,6 +257,8 @@ export function UserDetailCard(props) {
                   className="basis-2/5 "
                   aria-label="Currency"
                   {...register('currency', { required: true })}
+                  selectedKeys={moneyType}
+                  onSelectionChange={setMoneyType}
                   classNames={{
                     innerWrapper: 'p-0',
                     mainWrapper: 'h-12',
