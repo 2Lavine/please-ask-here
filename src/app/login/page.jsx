@@ -1,16 +1,22 @@
 'use client';
+import { LoginContext } from '@/utils/LoginContext';
+import { EmailLogin, ThirdPartyStrategy } from '@/utils/LoginStrategies';
 import { SIGNIN } from '@/utils/url';
 import { ErrorMessage } from '@hookform/error-message';
 import { Divider } from '@nextui-org/react';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 const LoginPage = () => {
   const { status, data } = useSession();
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const thirdPartyStrategy = new ThirdPartyStrategy();
+  const emailStrategy = new EmailLogin();
+  const loginContext = new LoginContext(thirdPartyStrategy);
   // get local storage on load
   useEffect(() => {
     const curUser = localStorage.getItem('user');
@@ -45,16 +51,18 @@ const LoginPage = () => {
     router.push('/');
   }
   const signInByEmail = async (data) => {
-    console.log('signIN', SIGNIN, data);
-    const { password, email } = data;
-    const res = await fetch(SIGNIN, {
-      method: 'POST',
-      body: JSON.stringify({ password, email, type: 'email' }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const body = await res.json();
+    // console.log('signIN', SIGNIN, data);
+    // const { password, email } = data;
+    // const res = await fetch(SIGNIN, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ password, email, type: 'email' }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+    // const body = await res.json();
+    loginContext.setStrategy(emailStrategy);
+    const body = await loginContext.login(data);
     const { success } = body.data;
     if (success) {
       router.push('/');
@@ -78,7 +86,10 @@ const LoginPage = () => {
             </div>
             <div className="mx-auto w-full max-w-[400px]">
               <div
-                onClick={() => signIn('github')}
+                onClick={() => {
+                  loginContext.setStrategy(thirdPartyStrategy);
+                  loginContext.login({ type: 'github' });
+                }}
                 className="flex cursor-pointer max-w-full grid-cols-2 flex-row items-center justify-center bg-[#276ef1] py-4 text-center font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px] px-8"
               >
                 <p className="font-bold">Sign up with Github</p>

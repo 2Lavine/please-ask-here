@@ -24,9 +24,12 @@ export default function UserProfile() {
     <div className="flex flex-col items-center justify-center">
       {userData && (
         <>
-          <Avatar src={userData.user.image} className="w-20 h-20 text-large" />
-          <div className="my-2">{userData.user.email}</div>
-          <div className="mb-6 text-Emerald-400">@{userData.user.name}</div>
+          <Avatar
+            src={userData?.user?.image}
+            className="w-20 h-20 text-large"
+          />
+          <div className="my-2">{userData?.user?.email}</div>
+          <div className="mb-6 text-Emerald-400">@{userData?.user?.name}</div>
         </>
       )}
       {userData &&
