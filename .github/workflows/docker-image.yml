@@ -2,7 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: ['main']
+    branches:
+      - 'release/1.*' # 当以 "release/1." 开头的分支有代码推送时触发工作流
+      - 'main'
   pull_request:
     branches: ['main']
 
